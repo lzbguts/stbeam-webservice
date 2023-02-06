@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import Game from "../model/Game";
+import axios from 'axios';
 
 class GameController {
     async getPrices(req: Request, res: Response) {
@@ -15,26 +16,18 @@ class GameController {
                 return res.json(obj);
             }
             else {
-
-                const countries = ["br", "tr"];
-
                 const data = {};
+                var a;
 
                 console.log("M 1");
 
-                const reqg = await fetch("https://catfact.ninja/fact");
-                const gato = await reqg.json();
+                /*const reqd = await axios.get(`${process.env.STEAM_API}/?appids=${id}&cc=BR`);
+                a = reqd.data;*/
 
-                return res.json(gato);
-
-                for (var c in countries) {
-                    await fetch(`${process.env.STEAM_API}/?appids=${id}&cc=${countries[c]}`).then(async dataX => {
-                        data[countries[c]] = await dataX.json();
-                    })
-
-                    data[countries[c]] = data[countries[c]][id.toString()];
-                }
-                console.log("M 2");
+                const reqB = await axios.get(`${process.env.STEAM_API}/?appids=${id}&cc=BR`);
+                data["br"] = reqB.data[id.toString()];
+                const reqT = await axios.get(`${process.env.STEAM_API}/?appids=${id}&cc=TR`);
+                data["tr"] = reqT.data[id.toString()];
 
                 if (data["br"].data.is_free) {
                     return res.json(
