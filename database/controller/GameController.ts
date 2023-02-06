@@ -20,6 +20,8 @@ class GameController {
 
                 const data = {};
 
+                console.log("M 1");
+
                 for (var c in countries) {
                     await fetch(`${process.env.STEAM_API}/?appids=${id}&cc=${countries[c]}`).then(async dataX => {
                         data[countries[c]] = await dataX.json();
@@ -27,6 +29,7 @@ class GameController {
 
                     data[countries[c]] = data[countries[c]][id.toString()];
                 }
+                console.log("M 2");
 
                 if (data["br"].data.is_free) {
                     return res.json(
@@ -40,6 +43,8 @@ class GameController {
                         }
                     );
                 }
+
+                console.log("M 3");
 
                 const
                     br = data["br"].data,
@@ -59,6 +64,8 @@ class GameController {
                         name: br.name
                     });
                 }
+
+                console.log("M 4");
 
                 return res.json({
                     "success": true,
