@@ -25,7 +25,7 @@ class GameController {
                 const reqg = await fetch("https://catfact.ninja/fact");
                 const gato = await reqg.json();
 
-                console.log(gato);
+                return res.json(gato);
 
                 for (var c in countries) {
                     await fetch(`${process.env.STEAM_API}/?appids=${id}&cc=${countries[c]}`).then(async dataX => {
