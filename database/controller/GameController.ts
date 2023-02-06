@@ -17,12 +17,6 @@ class GameController {
             }
             else {
                 const data = {};
-                var a;
-
-                console.log("M 1");
-
-                /*const reqd = await axios.get(`${process.env.STEAM_API}/?appids=${id}&cc=BR`);
-                a = reqd.data;*/
 
                 const reqB = await axios.get(`${process.env.STEAM_API}/?appids=${id}&cc=BR`);
                 data["br"] = reqB.data[id.toString()];
@@ -42,8 +36,6 @@ class GameController {
                     );
                 }
 
-                console.log("M 3");
-
                 const
                     br = data["br"].data,
                     tr = data["tr"].data,
@@ -62,8 +54,6 @@ class GameController {
                         name: br.name
                     });
                 }
-
-                console.log("M 4");
 
                 return res.json({
                     "success": true,
