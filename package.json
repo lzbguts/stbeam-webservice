@@ -4,7 +4,8 @@
   "description": "",
   "main": "main.ts",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only ./main.ts"
+    "dev": "ts-node-dev --respawn --transpile-only ./main.ts",
+    "build": "ts-node-dev --respawn --transpile-only ./main.ts"
   },
   "keywords": [],
   "author": "",
