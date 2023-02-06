@@ -21,7 +21,7 @@ class GameController {
                 const data = {};
 
                 for (var c in countries) {
-                    await fetch(`https://store.steampowered.com/api/appdetails/?appids=${id}&cc=${countries[c]}`).then(async dataX => {
+                    await fetch(`${process.env.STEAM_API}/?appids=${id}&cc=${countries[c]}`).then(async dataX => {
                         data[countries[c]] = await dataX.json();
                     })
 
