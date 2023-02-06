@@ -5,7 +5,6 @@ import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 
 dotenv.config();
-dotenv.config({ path: `.env.local`, override: true });
 
 var app = express();
 
@@ -17,5 +16,5 @@ app.use(express.json());
 app.use(routes)
 
 app.listen(3000, () => {
-    console.log(`STBeam WebService running on port 3000. Example: ${process.env.STBEAM_API}/games/108600`);
+    console.log(`STBeam WebService running on port 3000.`);
 });

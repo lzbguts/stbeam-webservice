@@ -2,7 +2,7 @@
   "name": "stbeam-webservice",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "main.ts",
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only ./main.ts"
   },
