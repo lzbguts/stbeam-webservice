@@ -15,6 +15,8 @@ app.use(cors());
 app.use(express.json());
 app.use(routes)
 
-app.listen(3000, () => {
-    console.log(`STBeam WebService running on port 3000.`);
+const PORT = process.env.PORT || 4000;
+
+app.listen(PORT, () => {
+    console.log(`STBeam WebService running on port ${PORT}.`);
 });
