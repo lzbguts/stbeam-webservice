@@ -30,6 +30,7 @@ class GameController {
                             "data": {
                                 "nome": data["br"].data.name,
                                 "img": data["br"].data.header_image,
+                                "screenshots": data["br"].data.screenshots,
                                 "is_free": true
                             }
                         }
@@ -60,6 +61,7 @@ class GameController {
                     "data": {
                         "nome": br.name,
                         "img": br.header_image,
+                        "screenshots": br.screenshots,
                         "preco_brl": preco_brl.toFixed(2),
                         "preco_tl": preco_tl.toFixed(2)
                     }
