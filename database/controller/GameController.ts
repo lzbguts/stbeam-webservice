@@ -116,12 +116,10 @@ class GameController {
             var rand = Math.floor(Math.random() * (apps.length - 0) + 0);
 
             var reqL = await axios.get(`${process.env.STBEAM_API}/games/${apps[rand].appid}`);
-            var dataL = await reqL.data;
             
             while(reqL.data.success == false) {
                 rand = Math.floor(Math.random() * (apps.length - 0) + 0);
                 reqL = await axios.get(`${process.env.STBEAM_API}/games/${apps[rand].appid}`);
-                dataL = await reqL.data;
             }
 
             return res.json(apps[rand].appid);
