@@ -3,25 +3,29 @@ import Game from "../model/Game";
 import axios from 'axios';
 
 class GameController {
+    static async getData(id: any) {
+        const data = {};
+
+        const reqB = await axios.get(`https://nextjs-cors-anywhere.vercel.app/api?endpoint=${process.env.STEAM_API}/?appids=${id}&cc=BR`);
+        data["br"] = reqB.data[id.toString()];
+        const reqT = await axios.get(`https://nextjs-cors-anywhere.vercel.app/api?endpoint=${process.env.STEAM_API}/?appids=${id}&cc=TR`);
+        data["tr"] = reqT.data[id.toString()];
+
+        return data;
+    }
+
     async getPrices(req: Request, res: Response) {
         try {
             var id = req.params.id;
 
-            var obj = {
-                "success": false,
-                "data": {}
-            }
-
             if (!parseInt(id)) {
-                return res.json(obj);
+                return res.json({
+                    "success": false,
+                    "data": {}
+                });
             }
             else {
-                const data = {};
-
-                const reqB = await axios.get(`${process.env.STEAM_API}/?appids=${id}&cc=BR`);
-                data["br"] = reqB.data[id.toString()];
-                const reqT = await axios.get(`${process.env.STEAM_API}/?appids=${id}&cc=TR`);
-                data["tr"] = reqT.data[id.toString()];
+                const data = await GameController.getData(id);
 
                 if (data["br"].data.is_free) {
                     return res.json(
@@ -68,7 +72,7 @@ class GameController {
                 });
             }
         } catch (error) {
-            return res.status(500).json({
+            return res.json({
                 "success": false,
                 "data": {}
             })
@@ -95,6 +99,32 @@ class GameController {
             const topX = await Game.find().limit(number).sort({ views: "desc" });
 
             return res.json(topX);
+        } catch (error) {
+            return res.status(500).json({
+                error: "API Error",
+                message: error
+            })
+        }
+    };
+
+    async getRandom(req: Request, res: Response) {
+        try {
+            const reqR = await axios.get(`${process.env.STEAM_APPLIST_API}`);
+            const dataR = await reqR.data;
+
+            const apps = dataR.applist.apps;
+            var rand = Math.floor(Math.random() * (apps.length - 0) + 0);
+
+            var reqL = await axios.get(`${process.env.STBEAM_API}/games/${apps[rand].appid}`);
+            var dataL = await reqL.data;
+            
+            while(reqL.data.success == false) {
+                rand = Math.floor(Math.random() * (apps.length - 0) + 0);
+                reqL = await axios.get(`${process.env.STBEAM_API}/games/${apps[rand].appid}`);
+                dataL = await reqL.data;
+            }
+
+            return res.json(apps[rand].appid);
         } catch (error) {
             return res.status(500).json({
                 error: "API Error",
