@@ -6,9 +6,9 @@ class GameController {
     static async getData(id: any) {
         const data = {};
 
-        const reqB = await axios.get(`https://nextjs-cors-anywhere.vercel.app/api?endpoint=${process.env.STEAM_API}/?appids=${id}&cc=BR`);
+        const reqB = await axios.get(`${process.env.STEAM_API}/?appids=${id}&cc=BR`);
         data["br"] = reqB.data[id.toString()];
-        const reqT = await axios.get(`https://nextjs-cors-anywhere.vercel.app/api?endpoint=${process.env.STEAM_API}/?appids=${id}&cc=TR`);
+        const reqT = await axios.get(`${process.env.STEAM_API}/?appids=${id}&cc=TR`);
         data["tr"] = reqT.data[id.toString()];
 
         return data;
